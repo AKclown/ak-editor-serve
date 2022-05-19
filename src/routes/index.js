@@ -1,32 +1,31 @@
 const router = require('koa-router')();
 const pkg = require('../../package.json');
 const testMysqlConnect = require('../db/mysql2');
-
-// router.get('/', async (ctx, next) => {
-//   await ctx.render('index', {
-//     title: 'Hello Koa 2!'
-//   })
-// })
-
-// router.get('/string', async (ctx, next) => {
-//   ctx.body = 'koa2 string'
-// })
-
-// router.get('/json', async (ctx, next) => {
-//   ctx.body = {
-//     title: 'koa2 json'
-//   }
-// })
-
+const { ENV } = require('../utils/env')
+const { WorkContentModel } = require('../models/WorkContentModel')
 
 router.get('/api/db-check', async (ctx, next) => {
+
+    // 测试mysql链接
     const mysqlRes = await testMysqlConnect();
+
+    // 测试mongodb 链接
+    let mongodbConn
+    try {
+        mongodbConn = true;
+        await WorkContentModel.findOne() 
+    } catch (error) {
+        mongodbConn = false;
+    }
+
     ctx.body = {
         error: 0,
         data: {
             name: 'biz editor serve',
             version: pkg.version,
-            mysqlConn: mysqlRes.length > 0
+            ENV,
+            mysqlConn: mysqlRes.length > 0,
+            mongodbConn
         }
     }
 
