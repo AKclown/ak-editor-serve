@@ -3,6 +3,7 @@ const pkg = require('../../package.json');
 const testMysqlConnect = require('../db/mysql2');
 const { ENV } = require('../utils/env')
 const { WorkContentModel } = require('../models/WorkContentModel')
+const { cacheGet, cacheSet } = require('../cache/index')
 
 router.get('/api/db-check', async (ctx, next) => {
 
@@ -13,10 +14,14 @@ router.get('/api/db-check', async (ctx, next) => {
     let mongodbConn
     try {
         mongodbConn = true;
-        await WorkContentModel.findOne() 
+        await WorkContentModel.findOne()
     } catch (error) {
         mongodbConn = false;
     }
+
+    // 测试redis链接
+    cacheSet('name', 'AKclown');
+    const redisTestVal = await cacheGet('name')
 
     ctx.body = {
         error: 0,
@@ -25,7 +30,8 @@ router.get('/api/db-check', async (ctx, next) => {
             version: pkg.version,
             ENV,
             mysqlConn: mysqlRes.length > 0,
-            mongodbConn
+            mongodbConn,
+            redisConn: redisTestVal != null
         }
     }
 

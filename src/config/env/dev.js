@@ -13,5 +13,11 @@ module.exports = {
         host: 'localhost',
         port: '27017',
         dbName: 'imooc_lego_course'
+    },
+
+    // redis配置
+    redisConfig: {
+        port: '6379',
+        host: '127.0.0.1'
     }
 }
