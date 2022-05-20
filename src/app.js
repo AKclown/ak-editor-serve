@@ -6,12 +6,15 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const jwt = require('./middlewares/jwt')
-
+const cors = require('./middlewares/cors')
 const index = require('./routes/index')
 const users = require('./routes/users')
 
 // error handler
 onerror(app)
+
+// 支持跨域
+app.use(cors)
 
 // 配置 jwt
 app.use(jwt)
