@@ -1,0 +1,24 @@
+# 当前版本号
+version: '1'
+
+# 服务
+service:
+  # 编辑器服务 - 服务名称
+  editor-server:
+    build:
+      context: . # 当前目录
+      dockerfile: Dockerfile # 基于dockerfile构建
+    image: editor-server # 依赖于当前的Dockerfile创建出来的镜像
+    container_name: editor-server # 容器的名称
+    ports:
+      - 8081:3000 # 宿主机通过8081端口访问
+  # redis服务
+  editor-redis:
+    image: redis # 引用官方redis镜像
+    container_name: editor-redis # 容器的名称
+    ports:
+      # 宿主机、可以用127.0.0.1:6378即可链接容器的数据库 `redis-cli -h 127.0.0.1 - p 6378`
+      # 但是，其他docker容器不能，因为在容器内127.0.0.1是docker容器本身，而不是宿主机
+      - 6378:6379 # 宿主机通过6378端口访问
+    environment:
+      - TZ=Asia/Shanghai # 设置时区
