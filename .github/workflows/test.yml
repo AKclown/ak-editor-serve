@@ -1,9 +1,10 @@
-name: demo
+# 测试环境 - 自动化测试
+name: test
 
-on: # 触发条件
+on:
   push:
     branches:
-      - main
+      - master
     paths: # 触发作用域
       - ".github/workflows/**"
       - "__test__/**"
@@ -18,14 +19,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - name: print node version
+      - name: lint
         run: | # 自定义命令
-          node -v
-          npm -v
-  test2:
-    runs-on: ubuntu-latest # 运行环境
-    steps:
-      - run: touch ak.txt
-      - run: echo ak > ak.txt
-      - run: cat ak.txt
-# 每一个 横杠 代表一个 步骤
+          npm i 
+          npm run lint

@@ -7,9 +7,15 @@
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon bin/www",
     "prd-dev": "cross-env NODE_ENV=dev pm2 start bin/pm2-prd-dev.config.js",
     "prd": "pm2 start bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "yarn run lint:es && yarn run lint:prettier",
+    "lint:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache",
+    "lint:prettier": "prettier --list-different \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\"",
+    "fix": "yarn run fix:es && yarn run fix:prettier ",
+    "fix:es": "eslint --ext .js,.jsx,.ts,.tsx ./ --cache --fix",
+    "fix:prettier": "prettier --write \"**/*.{css,less,js,jsx,ts,tsx,json,yml,yaml,md}\""
   },
   "dependencies": {
+    "ajv": "^6.12.5",
     "debug": "^4.1.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
@@ -33,6 +39,12 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^1.19.1"
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^2.6.2"
   }
 }

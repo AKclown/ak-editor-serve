@@ -1,37 +1,24 @@
 // jwt加密/解密
-const util = require('util')
-const jwt = require('jsonwebtoken')
-const { JWT_SECRET } = require('../config/constant')
-const { jwtExpiresIn } = require('../config/index')
+const util = require("util");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config/constant");
+const { jwtExpiresIn } = require("../config/index");
 
 const verify = util.promisify(jwt.verify);
 
 // jwt verify
 async function jwtVerify(token) {
-    const data = await verify(token.split(' ')[1], JWT_SECRET) // 去掉前面的 Bearer
-    return data
+  const data = await verify(token.split(" ")[1], JWT_SECRET); // 去掉前面的 Bearer
+  return data;
 }
 
 // jwt sign
 function jwtSign(data) {
-    const token = jwt.sign(data, JWT_SECRET, { expiresIn: jwtExpiresIn });
-    return token
+  const token = jwt.sign(data, JWT_SECRET, { expiresIn: jwtExpiresIn });
+  return token;
 }
 
 module.exports = {
-    jwtVerify,
-    jwtSign
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+  jwtVerify,
+  jwtSign,
+};
