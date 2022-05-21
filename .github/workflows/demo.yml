@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2 # git pull 拉取代码
       - name: use Node.js  # step name
-        uses: action/setup-node@v1
+        uses: actions/setup-node@v1
         with:
           node-version: 14
       - name: print node version
