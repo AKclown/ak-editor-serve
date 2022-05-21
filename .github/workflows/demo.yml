@@ -13,7 +13,7 @@ jobs:
   test: # job名称
     runs-on: ubuntu-latest # 运行环境
     steps:
-      - uses: actions/checkout@2v # git pull 拉取代码
+      - uses: actions/checkout@v2 # git pull 拉取代码
       - name: use Node.js  # step name
         uses: action/setup-node@v1
         with:
