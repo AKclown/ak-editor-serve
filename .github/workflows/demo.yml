@@ -1,0 +1,32 @@
+name: demo
+
+on: # 触发条件
+  push:
+    branches:
+      - main
+    paths: # 触发作用域
+      - ".github/workflows/**"
+      - "__test__/**"
+      - "src/**"
+
+jobs:
+  test: # job名称
+    runs-on: ubuntu-latest # 运行环境
+    steps:
+      - uses: actions/checkout@2v # git pull 拉取代码
+      - name: use Node.js  # step name
+        uses: action/setup-node@v1
+        with:
+          node-version: 14
+      - name: print node version
+        run: |  # 自定义命令
+          node -v
+          npm -v
+  test2:
+    runs-on: ubuntu-latest # 运行环境
+    steps:
+     - run: touch ak.txt
+     - run: echo ak > ak.txt
+     - run: cat ak.txt
+
+# 每一个 横杠 代表一个 步骤
