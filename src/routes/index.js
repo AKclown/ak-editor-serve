@@ -31,6 +31,8 @@ router.get("/api/db-check", async (ctx, next) => {
       mysqlConn: mysqlRes.length > 0,
       mongodbConn,
       redisConn: redisTestVal != null,
+      SERVER_NAME: process.env.SERVER_NAME,
+      AUTHOR_NAME: process.env.AUTHOR_NAME,
     },
   };
 });
