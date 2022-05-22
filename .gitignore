@@ -2,3 +2,6 @@ node_modules
 
 # pm2 日志
 logs/
+
+# docker mysql数据持久化文件夹
+.docker-volumes/

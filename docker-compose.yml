@@ -1,8 +1,8 @@
 # 当前版本号
-version: '1'
+version: "3"
 
 # 服务
-service:
+services:
   # 编辑器服务 - 服务名称
   editor-server:
     build:
@@ -21,4 +21,35 @@ service:
       # 但是，其他docker容器不能，因为在容器内127.0.0.1是docker容器本身，而不是宿主机
       - 6378:6379 # 宿主机通过6378端口访问
     environment:
+      - TZ=Asia/Shanghai # 设置时区
+  # mysql服务
+  editor-mysql:
+    image: mysql # 引用官方mysql镜像
+    container_name: editor-mysql # 容器的名称
+    restart: always # 出错则重启
+    privileged: true # 高权限 执行下面的mysql/init (允许容器中运行一些特权命令)
+    command: --default-authentication-plugin=mysql_native_password # 解决无法远程访问的问题 (除了容器本身 - 其余的都是远程外部链接 宿主机也是)
+    ports:
+      # 宿主机可以用 127.0.0.1:3305 即可连接容器中的数据库
+      - 3305:3306
+    volumes:
+      - .docker-volumes/mysql/log:/var/log/mysql # 日志数据持久化
+      - .docker-volumes/mysql/data:/var/lib/mysql # 数据持久化
+      - ./mysql/init:/docker-entrypoint-initdb.d/ # 初始化sql
+    environment:
+      - MYSQL_DATABASE=imooc_lego_course # 初始化容器时创建数据库
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=Asia/Shanghai # 设置时区
+  # mongo服务
+  editor-mongo:
+    image: mongo # 引用官方mongo镜像
+    container_name: editor-mongo # 容器的名称
+    restart: always # 出错则重启
+    volumes:
+      - .docker-volumes/mongo/data:/data/db # 数据持久化
+    ports:
+      # 宿主机可以用 127.0.0.1:27016 即可连接容器中的数据库
+      - 27016:27017 # 宿主机通过27016端口访问
+    environment:
+      - MONGO_INITDB_DATABASE=imooc_lego_course # 初始化容器时创建数据库
       - TZ=Asia/Shanghai # 设置时区
