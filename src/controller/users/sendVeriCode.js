@@ -1,7 +1,4 @@
-/**
- * @description 发送短信验证码
- * @author 双越
- */
+// 发送短信验证码
 
 const {
   getVeriCodeFromCache,
