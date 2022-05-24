@@ -1,18 +1,18 @@
 // 数据校验 channel
 
 const strRule = {
-  type: "string",
+  type: 'string',
   maxLength: 255,
 };
 
 const numRule = {
-  type: "number",
+  type: 'number',
 };
 
 module.exports = {
-  type: "object",
+  type: 'object',
   // 用户信息要符合 ChannelModel 配置
-  required: ["name"],
+  required: ['name'],
   properties: {
     name: strRule,
     workId: numRule,

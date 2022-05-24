@@ -2,16 +2,16 @@
  * 配置sequelize，链接mysql
  */
 
-const { Sequelize } = require("sequelize");
-const { mysqlConfig } = require("../../config/index");
-const { isPrd, isTest } = require("../../utils/env");
+const { Sequelize } = require('sequelize');
+const { mysqlConfig } = require('../../config/index');
+const { isPrd, isTest } = require('../../utils/env');
 
 // 链接配置
 const { host, user, password, port, database } = mysqlConfig;
 const conf = {
   host,
   port,
-  dialect: "mysql",
+  dialect: 'mysql',
 };
 
 // 测试环境不打印日志

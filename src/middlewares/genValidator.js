@@ -1,8 +1,8 @@
 // 生成 ctx.request.body 格式校验的中间件
 
-const Ajv = require("ajv");
-const { ErrorRes } = require("../res-model/index");
-const { validateFailInfo } = require("../res-model/failInfo/index");
+const Ajv = require('ajv');
+const { ErrorRes } = require('../res-model/index');
+const { validateFailInfo } = require('../res-model/failInfo/index');
 
 const ajv = new Ajv({
   allErrors: true, // 输出所有错误

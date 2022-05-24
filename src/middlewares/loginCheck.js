@@ -1,7 +1,7 @@
 // 登录校验
-const { jwtVerify } = require("../utils/jwt");
-const { ErrorRes } = require("../res-model/index");
-const { loginCheckFailInfo } = require("../res-model/failInfo/index");
+const { jwtVerify } = require('../utils/jwt');
+const { ErrorRes } = require('../res-model/index');
+const { loginCheckFailInfo } = require('../res-model/failInfo/index');
 
 module.exports = async function loginCheck(ctx, next) {
   // 失败信息

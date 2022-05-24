@@ -15,7 +15,7 @@ class BaseRes {
 
 // 执行失败的数据模型
 class ErrorRes extends BaseRes {
-  constructor({ errno = -1, message = "", data }, addMessage = "") {
+  constructor({ errno = -1, message = '', data }, addMessage = '') {
     super({
       errno,
       message: addMessage

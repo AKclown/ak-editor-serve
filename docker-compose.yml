@@ -1,5 +1,5 @@
 # 表明了使用那个版本的compose
-version: "3"
+version: '3'
 
 # 服务
 services:

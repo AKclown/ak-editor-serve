@@ -1,7 +1,7 @@
 /**
  * 作品内容 Model ，存储到 Mongodb
  */
-const mongoose = require("../db/mongoose");
+const mongoose = require('../db/mongoose');
 
 // 两个model 公用一个 Schema
 const contentSchema = mongoose.Schema(
@@ -17,11 +17,11 @@ const contentSchema = mongoose.Schema(
 );
 
 // 为发布的内容
-const WorkContentModel = mongoose.model("workContent", contentSchema);
+const WorkContentModel = mongoose.model('workContent', contentSchema);
 
 // 发布的内容
 const WorkPublishContentModel = mongoose.model(
-  "workPublishContent",
+  'workPublishContent',
   contentSchema
 );
 

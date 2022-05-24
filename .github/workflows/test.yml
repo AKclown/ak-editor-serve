@@ -6,9 +6,9 @@ on:
     branches:
       - master
     paths: # 触发作用域
-      - ".github/workflows/**"
-      - "__test__/**"
-      - "src/**"
+      - '.github/workflows/**'
+      - '__test__/**'
+      - 'src/**'
 
 jobs:
   test: # job名称

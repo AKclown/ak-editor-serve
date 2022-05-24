@@ -1,6 +1,6 @@
 // 数据缓存
 
-const redisClient = require("../db/redis");
+const redisClient = require('../db/redis');
 
 /**
  * redis set
@@ -10,7 +10,7 @@ const redisClient = require("../db/redis");
  */
 function cacheSet(key, val, timeout = 60 * 60) {
   let formatVal;
-  if (typeof val === "object") {
+  if (typeof val === 'object') {
     formatVal = JSON.stringify(val);
   } else {
     formatVal = val;

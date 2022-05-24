@@ -6,14 +6,15 @@ module.exports = {
     jest: true,
     es6: true,
   },
-  extends: ["airbnb-base", "plugin:prettier/recommended"],
+  extends: ['prettier'],
   parserOptions: {
     ecmaVersion: 12,
   },
-  plugins: ["prettier"],
+  plugins: ['prettier'],
   rules: {
-    "no-unused-vars": 0,
-    "no-console": "off",
-    "max-classes-per-file": 0,
+    'no-unused-vars': 0,
+    'no-console': 'off',
+    'max-classes-per-file': 0,
+    quotes: ['error', 'single'],
   },
 };

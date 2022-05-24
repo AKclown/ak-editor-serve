@@ -1,8 +1,8 @@
 /**
  * 封装 mongoose ，连接 mongodb
  */
-const mongoose = require("mongoose");
-const { mongodbConfig } = require("../config/index");
+const mongoose = require('mongoose');
+const { mongodbConfig } = require('../config/index');
 
 const { host, port, dbName, user, password } = mongodbConfig;
 
@@ -14,7 +14,7 @@ if (user && password) {
 // mongoose.set('useCreateIndex', true)
 // mongoose.set('useFindAndModify', false)
 
-mongoose.set("autoIndex", true);
+mongoose.set('autoIndex', true);
 
 // 开始连接 (使用用户名和密码时，需要?authSource=admin)
 mongoose.connect(`${url}/${dbName}?authSource=admin`, {
@@ -25,8 +25,8 @@ mongoose.connect(`${url}/${dbName}?authSource=admin`, {
 // 链接对象
 const db = mongoose.connection;
 
-db.on("error", (err) => {
-  console.error("mongoose connect error", err);
+db.on('error', err => {
+  console.error('mongoose connect error', err);
 });
 
 // db.once('open', () => {

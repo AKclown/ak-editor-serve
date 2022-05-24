@@ -1,13 +1,20 @@
-const router = require("koa-router")();
+const router = require('koa-router')();
 
-router.prefix("/users");
+// 中间件
+const genValidator = require('../middlewares/genValidator');
+const {
+  phoneNumberSchema,
+} = require('../validator/users');
 
-router.get("/", (ctx, next) => {
-  ctx.body = "this is a users response!";
-});
+// controller
+const sendVeriCode = require('../controller/users/sendVeriCode');
 
-router.get("/bar", (ctx, next) => {
-  ctx.body = "this is a users/bar response";
-});
+// 发送验证码
+router.post('/genVeriCode', genValidator(phoneNumberSchema), async ctx => {
+  const { phoneNumber, isRemoteTest } = ctx.request.body;
+  // 尝试发送验证码
+  const res = await sendVeriCode(phoneNumber, isRemoteTest);
+  ctx.body = res;
+})
 
 module.exports = router;

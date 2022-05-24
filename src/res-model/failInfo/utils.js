@@ -9,6 +9,6 @@ module.exports = {
   // 上传图片失败
   uploadImgFailInfo: {
     errno: 14001,
-    message: "上传图片失败",
+    message: '上传图片失败',
   },
 };
