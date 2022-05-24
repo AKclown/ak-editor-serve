@@ -4,7 +4,7 @@
 
 const seq = require("../seq");
 
-// 测试链接，直接运行node src/db/seq/utils/conn-test.js
+// 测试链接 （是否成功），直接运行node src/db/seq/utils/conn-test.js
 seq
   .authenticate()
   .then(() => {
@@ -14,5 +14,5 @@ seq
     console.log("fail");
   })
   .finally(() => {
-    process.exit();
+    seq.close();
   });

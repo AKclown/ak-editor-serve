@@ -60,6 +60,10 @@ async function syncDb() {
   }
 
   if (needToSyncDb) {
+    // 设置在sequelize实例上是一次性同步，如果设置model上 就是同步某个model
+    // alter参数，将检查数据库中表的当前状态(他具有那些列，他们的数据类型等)然后进行必要的更改以使其与模型匹配
+    // force 就是将创建的表，删除重新创建
+    // https://www.sequelize.com.cn/core-concepts/model-basics
     await seq.sync({ alter: true });
   }
 }

@@ -11,6 +11,5 @@ if (isPrd) fileName = "prd.js";
 
 // eslint-disable-next-line import/no-dynamic-require
 const conf = require(`./env/${fileName}`);
-console.log("conf: ", conf);
 
 module.exports = conf;

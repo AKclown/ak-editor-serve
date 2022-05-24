@@ -13,10 +13,12 @@ const conf = {
   port,
   dialect: "mysql",
 };
+
 // 测试环境不打印日志
 if (isTest) {
   conf.logging = () => {}; // 默认是console.log
 }
+
 // 线上环境用，连接池
 if (isPrd) {
   conf.pool = {
@@ -25,7 +27,8 @@ if (isPrd) {
     idle: 10000, // 如果一个线程 10 秒钟内没有被使用过的话，那么就释放线程
   };
 }
-// 创建链接
+
+// 创建链接 (链接方式数据库)
 const seq = new Sequelize(database, user, password, conf);
 
 module.exports = seq;
