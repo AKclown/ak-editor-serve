@@ -1,7 +1,7 @@
 // 公共模板 - 缓存
 
-const { cacheSet, cacheGet } = require('../index')
-const { getSortedObjStr } = require('../../utils/util')
+const { cacheSet, cacheGet } = require('../index');
+const { getSortedObjStr } = require('../../utils/util');
 
 /**
  * 获取 key
@@ -9,12 +9,12 @@ const { getSortedObjStr } = require('../../utils/util')
  * @param {object} pageInfo 分页
  */
 function getCacheKey(queryInfo = {}, pageInfo = {}) {
-    const PREFIX = 'public-templates-'
-    const queryInfoStr = getSortedObjStr(queryInfo)
-    const pageInfoStr = getSortedObjStr(pageInfo)
+  const PREFIX = 'public-templates-';
+  const queryInfoStr = getSortedObjStr(queryInfo);
+  const pageInfoStr = getSortedObjStr(pageInfo);
 
-    const key = `${PREFIX}${queryInfoStr}-${pageInfoStr}`
-    return key
+  const key = `${PREFIX}${queryInfoStr}-${pageInfoStr}`;
+  return key;
 }
 
 /**
@@ -23,10 +23,10 @@ function getCacheKey(queryInfo = {}, pageInfo = {}) {
  * @param {object} pageInfo 分页
  */
 async function publicTemplatesCacheGet(queryInfo = {}, pageInfo = {}) {
-    const key = getCacheKey(queryInfo, pageInfo)
-    const templates = await cacheGet(key)
-    if (!templates) return null // 无缓存
-    return templates // cacheGet 中有 JSON.parse
+  const key = getCacheKey(queryInfo, pageInfo);
+  const templates = await cacheGet(key);
+  if (!templates) return null; // 无缓存
+  return templates; // cacheGet 中有 JSON.parse
 }
 
 /**
@@ -36,17 +36,17 @@ async function publicTemplatesCacheGet(queryInfo = {}, pageInfo = {}) {
  * @param {object} templates 模板数据
  */
 function publicTemplatesCacheSet(queryInfo = {}, pageInfo = {}, templates) {
-    if (templates == null) return
+  if (templates == null) return;
 
-    const key = getCacheKey(queryInfo, pageInfo)
-    cacheSet(
-        key,
-        templates,
-        60 // timeout 设置为 1min，单位是 s
-    )
+  const key = getCacheKey(queryInfo, pageInfo);
+  cacheSet(
+    key,
+    templates,
+    60 // timeout 设置为 1min，单位是 s
+  );
 }
 
 module.exports = {
-    publicTemplatesCacheGet,
-    publicTemplatesCacheSet,
-}
+  publicTemplatesCacheGet,
+  publicTemplatesCacheSet,
+};

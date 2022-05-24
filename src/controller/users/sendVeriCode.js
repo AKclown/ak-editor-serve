@@ -10,7 +10,7 @@ const {
   sendVeriCodeErrorFailInfo,
 } = require('../../res-model/failInfo/index');
 const { ErrorRes, SuccessRes } = require('../../res-model/index');
-const {  isTest, isPrd } = require('../../utils/env');
+const { isTest, isPrd } = require('../../utils/env');
 const { msgVeriCodeTimeout } = require('../../config/index');
 
 /**
