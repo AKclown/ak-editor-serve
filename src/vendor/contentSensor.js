@@ -1,7 +1,4 @@
-// /**
-//  * @description 内容审核。保证内容安全，无政治血腥暴力等敏感信息
-//  * @author 双越
-//  */
+// 内容审核。保证内容安全，无政治血腥暴力等敏感信息
 
 // const AipContentCensorClient = require('baidu-aip-sdk').contentCensor
 // const { baiduCloudCensorConf } = require('../config/index.js')

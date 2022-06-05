@@ -91,7 +91,7 @@ const Work = seq.define('work', {
   },
 });
 
-// 和userModel建立关系 - Work 和 UserModel存在一对一的关系，外键再源模型中定义（Work）
+// 和userModel建立关系 - Work 和 UserModel存在一对多的关系，外键再源模型中定义（Work）
 Work.belongsTo(UserModel, {
   foreignKey: 'author',
   targetKey: 'username',
