@@ -1,43 +1,48 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# github actions 中文文档 https://docs.github.com/cn/actions/getting-started-with-github-actions
+
 name: deploy for dev
 
 on:
-  push:
-    branches:
-      - dev
-    paths: # 触发作用域
-      - '.github/workflows/**'
-      # - '__test__/**'
-      - 'src/**'
-      - 'Dockerfile'
-      - 'docker-compose.yml'
-      - 'bin/*'
-
+    push:
+        branches:
+            - 'dev' # 只针对 dev 分支
+        paths:
+            - '.github/workflows/*'
+            # - '__test__/**' # dev 不需要立即测试
+            - 'src/**'
+            - 'Dockerfile'
+            - 'docker-compose.yml'
+            - 'bin/*'
 
 jobs:
     deploy-dev:
         runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: set ssh key # 临时设置ssh key  -> 这一步是将私钥设置到这个Ubuntu机器上，这样子就可以通过ssh key来链接测试机
-        run: |
-             mkdir -p ~/.ssh/;
-            #  secrets.AK_ID_RSA获取到github -> setting -> secrets设置的数据
-             echo "${{secrets.AK_ID_RSA}}" > ~/.ssh/id_rsa;
-             chmod  600 ~/.ssh/id_rsa;
-             ssh-keyscan "47.106.10.26" >> ~/.ssh/known_hosts;
-      - name: deploy # 部署  （本来是要使用work用户的，但是我目前使用的是root用户）
-        run: |
-          ssh root@47.106.10.26 "
-          # [注意] 用work账号登录，手动创建 /home/work/imooc-lego目录 注释都需要手动操作
-          # 然后执行 git clone https://username:password@github.com/AKclown/ak-editor-serve.git -b dev (私有仓库，使用github用户名和密码. )
-          # 记得要删除origin, 否则会暴露github代码
-          cd /home/work/imooc-lego/ak-editor-serve;
-          git remote add origin https://github.com/AKclown/ak-editor-serve.git;
-          git checkout dev; # 重新下载最新代码
-          git pull origin dev; # 删除origin 否则会暴露github密码
-          # 启动docker
-          docker-compose  build editor-server; # 和docker-compose 中的service保持一致
-          docker-compose up -d;
-          "
-      - name: delete ssh key; # 删除ssh key
-        run: rm -rf ~/.ssh/id_rsa;
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: set ssh key # 临时设置 ssh key
+              run: |
+                  mkdir -p ~/.ssh/
+                  echo "${{secrets.WFP_ID_RSA}}" > ~/.ssh/id_rsa # secret 在这里配置 https://github.com/imooc-lego/biz-editor-server/settings/secrets
+                  chmod 600 ~/.ssh/id_rsa
+                  ssh-keyscan "47.106.10.26" >> ~/.ssh/known_hosts
+            - name: deploy # 部署
+              run: |
+                  ssh root@47.106.10.26 "
+                    # 【注意】用 work 账号登录，手动创建 /home/work/imooc-lego 目录 (暂时使用root账户)
+                    # 然后 git clone https://username:password@github.com/imooc-lego/biz-editor-server.git -b dev （私有仓库，使用 github 用户名和密码）
+                    # 记得删除 origin ，否则会暴露 github 密码
+
+                    cd /home/work/imooc-lego/biz-editor-server;
+                    git remote add origin https://wangfupeng1988:${{secrets.WFP_PASSWORD}}@github.com/imooc-lego/biz-editor-server.git;
+                    git checkout dev;
+                    git pull origin dev; # 重新下载最新代码
+                    git remote remove origin; # 删除 origin ，否则会暴露 github 密码
+                    # 启动 docker
+                    docker-compose build editor-server; # 和 docker-compose.yml service 名字一致
+                    docker-compose up -d;
+                  "
+            - name: delete ssh key # 删除 ssh key
+              run: rm -rf ~/.ssh/id_rsa
