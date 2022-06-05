@@ -16,7 +16,7 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest # 运行环境
     steps:
-      - uses: actions/checkout@v2 # git pull 拉取代码
+      - uses: actions/checkout@v2
       - name: set ssh key # 临时设置ssh key  -> 这一步是将私钥设置到这个Ubuntu机器上，这样子就可以通过ssh key来链接测试机
         run: |
              mkdir -p ~/.ssh/;
